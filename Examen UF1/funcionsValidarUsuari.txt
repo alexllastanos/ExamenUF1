@@ -1,0 +1,33 @@
+<?php
+if(session_status() === PHP_SESSION_NONE) session_start();
+
+
+function comprovarCorreu(){
+    foreach ($_SESSION['persones'] as $persona){
+        if ($persona->getCorreu() == $_POST['correu']){
+            return true;
+        }
+    }return false;
+}
+function comprovarContrasenya(){
+    if ($_POST['contrasenya'] == $_POST['contrasenya2']){
+        return true;
+    }
+    return false;
+}
+function comprovarContrasenya2(){
+    if (strlen($_POST['contrasenya'])>=6 && strlen($_POST['contrasenya'])>=12){
+        return true;
+    }
+    return false;
+}
+function comprovarCampsBuits(){
+    if (isset($_POST['correu']) || isset($_POST['contrasenya']) || isset($_POST['nomComplet']) || isset($_POST['generes'])){
+        return true;
+    }return false;
+}
+function comprovarCampsBuitsLogin(){
+    if (isset($_POST['correu']) || isset($_POST['pass'])){
+        return true;
+    }return false;
+}

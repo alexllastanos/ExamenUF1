@@ -1,0 +1,7 @@
+<?php
+include_once "../model/Persona.php";
+session_start();
+
+unset($_SESSION['usuariLoguejat']);
+header('Location: ../view/login.php');
+exit();

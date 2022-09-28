@@ -1,0 +1,8 @@
+<?php
+include_once "../model/Persona.php";
+if(session_status() === PHP_SESSION_NONE) session_start();
+if (isset($_POST['botoEliminarUsuari'])){
+    unset($_SESSION['persones'][$_POST['key']]);
+}
+    header("Location: ../view/usuari.php");
+    exit();

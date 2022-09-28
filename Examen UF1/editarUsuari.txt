@@ -1,0 +1,38 @@
+<?php
+include_once "../model/Persona.php";
+include_once "Functions/funcionsValidarUsuari.php";
+
+if(session_status() === PHP_SESSION_NONE) session_start();
+if (isset($_POST['botoEditarDadesUsuari'])){
+    foreach ($_SESSION['persones'] as $key => $persona){
+        if ($persona->getCorreu()==$_SESSION['usuariLoguejat']->getCorreu()){
+            unset($_SESSION['errors']);
+//            if(comprovarCorreu()) {
+//                $_SESSION['errors']['errorCorreu'] = "Aquest correu ja te un usuari existent!";
+//            }
+            if (!comprovarContrasenya()) {
+                $_SESSION['errors']['errorContrasenya'] = "Les contrasenyes han de ser iguals als dos camps!";
+            }
+            if (comprovarContrasenya2()) {
+                $_SESSION['errors']['errorContrasenya2'] = "La contrasenya ha de ser entre 6 i 12 caracters";
+            }
+            if (!comprovarCampsBuits()) {
+                $_SESSION['errors']['errorCampsBuits'] = "S'han d'omplir tots els camps";
+            }
+
+            if(!isset($_SESSION['errors'])) {
+                $_SESSION['persones'][$key] = new Persona($_POST['correu'], $_POST['contrasenya'], $_POST['nomComplet'], $_POST['genere']);
+                $_SESSION['usuariLoguejat'] = "";
+                $_SESSION['usuariLoguejat'] = $_SESSION['persones'][$key];
+            }
+
+            }
+
+        }
+
+    header("Location:../view/dadesUsuari.php");
+    exit();
+
+
+}
+?>

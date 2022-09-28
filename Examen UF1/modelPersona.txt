@@ -1,0 +1,107 @@
+<?php
+
+class Persona
+{
+    private $correu;
+    private $pass;
+    private $nomComplet;
+    private $genere;
+    private $rols;
+
+    /**
+     * @param $correu
+     * @param $pass
+     * @param $nomComplet
+     * @param $genere
+     */
+    public function __construct($correu, $pass, $nomComplet, $genere)
+    {
+        $this->correu = $correu;
+        $this->pass = $pass;
+        $this->nomComplet = $nomComplet;
+        $this->genere = $genere;
+        $this->rols = ['user'];
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCorreu()
+    {
+        return $this->correu;
+    }
+
+    /**
+     * @param mixed $correu
+     */
+    public function setCorreu($correu)
+    {
+        $this->correu = $correu;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPass()
+    {
+        return $this->pass;
+    }
+
+    /**
+     * @param mixed $pass
+     */
+    public function setPass($pass)
+    {
+        $this->pass = $pass;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNomComplet()
+    {
+        return $this->nomComplet;
+    }
+
+    /**
+     * @param mixed $nomComplet
+     */
+    public function setNomComplet($nomComplet)
+    {
+        $this->nomComplet = $nomComplet;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGenere()
+    {
+        return $this->genere;
+    }
+
+    /**
+     * @param mixed $genere
+     */
+    public function setGenere($genere)
+    {
+        $this->genere = $genere;
+    }
+
+    public function setAdmin()
+    {
+        return $this->rols[]='admin';
+    }
+
+    public function checkIsAdmin()
+    {
+        foreach ($this->rols as $rol){
+            if($rol === 'admin'){
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+?>

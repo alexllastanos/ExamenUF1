@@ -1,0 +1,36 @@
+<?php
+include_once "../model/Persona.php";
+include_once "Functions/funcionsValidarUsuari.php";
+if(session_status() === PHP_SESSION_NONE) session_start();
+if (comprovarCampsBuitsLogin()) {
+    $_SESSION['errors']['errorLogin'] = "S'han d'omplir tots els camps";
+}
+
+if (!isset($_SESSION['errors'])) {
+    header('Location: ../view/login.php');
+    exit();
+} else {
+    $password = $_POST['pass'];
+    $correu = $_POST['correu'];
+    if (iniciarSessio($correu, $password)) {
+        header('Location: /view/index.php');
+        exit();
+    } else {
+        header('Location: ../view/login.php');
+        exit();
+    }
+}
+
+function iniciarSessio($correu, $contrasenya)
+{
+    foreach ($_SESSION['persones'] as $persona) {
+        if ($persona->getCorreu() == $correu && $persona->getPass() == $contrasenya) {
+            $_SESSION['usuariLoguejat'] = '';
+            $_SESSION['usuariLoguejat'] = $persona;
+            return true;
+        }
+    }
+    return false;
+}
+
+?>
